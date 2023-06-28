@@ -14,3 +14,7 @@ ci_lower_fn <- function(est) {
 ci_upper_fn <- function(est) {
   est + (t_val * as.name(paste(est,"_sd")))
 }
+
+cntr_fn <- function(var){
+  var - mean(var)
+}
