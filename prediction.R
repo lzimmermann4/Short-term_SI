@@ -99,6 +99,10 @@ for (s in 1:10) {
   }  
 }
 tbl3_metrics <- c("auc","auc_sd","sensitivity","sensitivity_sd","specificity","specificity_sd","accuracy","ppv","npv")
+tbl3_cis <- c("AUC", "Sensitivity", "Specificity")
+conf = 0.95  
+rounds = 50
+t_val = qt((1 + conf) / 2.0, df=rounds - 1)
 
 # average across folds in k-fold CV
 perf_output_avg <- perf_output%>%
@@ -108,7 +112,15 @@ perf_output_avg <- perf_output%>%
            mean_fn,
            .names = "{col}")
   )%>%
-  dplyr::ungroup()
+  dplyr::ungroup()%>%
+  dplyr:: mutate(
+    across(all_of(tbl3_cis),
+           ci_lower_fn,
+           .names= "{col}_CI_lower"),
+    across(all_of(tbl3_cis),
+           ci_upper_fn,
+           .names="{col}_CI_upper")
+    )
 
 vimp_output_avg <- vimp_output%>%
   dplyr::group_by(Source,With_SI,Variable)%>%
