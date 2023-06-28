@@ -39,7 +39,7 @@ all.vars <- c(id,resp.vars,rhs.vars)
 rhs.vars.add <- paste(rhs.vars,collapse = " + ")
 formula_PGEE <- paste(resp.vars," ~ ",rhs.vars.add) 
 
-#-----Set up for 'prediction.R'-----
+#-----Set up for 'prediction.R', 'supp_mixeff_regressions.R'-----
 with_SI = "with SI"
 rhs.vars.PGEE.ema <- c("[insert]")
 
@@ -62,7 +62,7 @@ if (source == "EMA and Passive") {
 rhs.vars.PGEE.add <- paste(rhs.vars.PGEEstandard,collapse = " + ")
 formula_glmertree <- paste(resp.vars," ~ 1 | ID | ",rhs.vars.PGEE.add)
 
-#-----Read in for 'variable_selection.R', 'prediction.R', 'main_figures.R'-----
+#-----Read in for 'variable_selection.R', 'prediction.R', 'main_figures.R', 'supp_figures.R', 'supp_mixeff_regressions.R'-----
 EMA_dat <- read.csv(paste0(datadir,"[insert filename].csv"), header=T)
 
 passive_dat <- read.csv(paste0(datadir,"[insert filename].csv"), header=T)
@@ -83,3 +83,5 @@ source(paste0(codedir, "/prediction.R"))
 source(paste0(codedir, "/main_figures.R"))
 
 source(paste0(codedir, "/supp_figures.R"))
+
+source(paste0(codedir, "/supp_mixeff_regressions.R"))
